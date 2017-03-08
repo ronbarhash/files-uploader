@@ -16,7 +16,7 @@
 <div class="container">
 	<div class="row .top">
 	<label class="btn btn-default btn-file">
-	Browse
+	Upload
 		<input id="fileupload" type="file" name="files[]" data-url="lib/js/jQuery-File-Upload/server/php/" multiple style="display: none;">
 	</label>
 		<div id="progress" class="progress">
@@ -28,16 +28,14 @@
     <!-- The container for the uploaded files -->
    
 	<div class="row">
-		<table class="table table-hover">
-  			
-		</table>
-		<!-- <embed src="files/013147149X_book.pdf" width="600" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"> -->
+		<table class="table table-hover"></table>
 		<div class="PDF">
-   <object data="" type="application/pdf" width="750" height="600">
-       alt : <a href="files/013147149X_book.pdf">your.pdf</a>
-   </object>
-</div>
+		   <object data="" type="application/pdf" width="750" height="600">
+		       alt : <a href="files/013147149X_book.pdf">your.pdf</a>
+		   </object>
+		</div>
 	</div>
+
 </div>
 <script src="js/app.js"></script>
 <script>
@@ -54,11 +52,13 @@ $(function () {
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo('#files');
                 $.post('api/files',  { 'filename': file.name})
-                	.done(function() {
-                		$('.table').html("");
-				    	getTable();
+                	.done(function(data) {
+                		$('.table').append('<tr><td>'+file.name+'</td><td><button class="btn btn-success">show</button></td>'+"<td><input type='submit' class='btn btn-danger' id="+data+" value='delete'></td></tr>"); 
+                		// +"<td><form method='POST' action='api/file/"+data+"'><input type='hidden' name='_method' value='DELETE'><input type='submit' class='btn btn-danger' value='delete'></form></td><tr>"
+                		// console.log(data);             						    	
 				  	});
             });
+            // getTable();
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);

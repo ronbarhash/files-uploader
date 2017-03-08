@@ -4,9 +4,9 @@ var table = $.get( "api/", function( data ) {
 
   var str = "";
   var btn = "<td><button class='btn btn-success'>show</button></td>";
-  for(var row in data) {
-    console.log(data[row]);
-    str += "<tr> <td>" + data[row]['filename'] +"</td>"+ btn +"<td><form method='POST' action='api/file/"+data[row]['id']+"'><input type='hidden' name='_method' value='DELETE'><input type='submit' class='btn btn-danger' value='delete'></form></tr>";
+
+  for(var row in data) {    
+    str += "<tr> <td>" + data[row]['filename'] +"</td>"+ btn +"<td><input type='submit' id='"+data[row]['id'] +"' class='btn btn-danger' value='delete'></td></tr>";
   }
 
   table.append(str);
@@ -22,5 +22,17 @@ $('.table').on('click', 'button', function(){
 
 });
 
+$('.table').on('click', 'input', function(){
+  var tr= $(this).closest('tr');
+  var id = $(this).attr('id');
+  $.post('/api/file/'+ id,{'id':id}).done(function(){  
+    
+    tr.remove();
+    $('.PDF').hide();
+    
+  });
   
+});
+
+
 }

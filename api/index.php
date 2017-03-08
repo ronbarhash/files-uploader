@@ -7,7 +7,7 @@ $app = new \Slim\Slim();
 
 $app->get('/', function () use($fpdo){
 	$result = [];
-    $query = $fpdo->from('files')->limit(5);
+    $query = $fpdo->from('files');
     foreach ($query as $key => $value) {
     	$result[]=$value;
     }
@@ -27,9 +27,12 @@ $app->get('/files/:id', function ($id) use($fpdo) {
 });
 
 $app->post('/file/:id', function ($id) use($fpdo,$app) {
+	$post = $app->request->post();
+	
 
     $query = $fpdo->deleteFrom('files')->where('id', $id)->execute();
-    $app->redirect('/');
+    $post = json_encode($post);
+	    	    echo ($post);
    
 });
 
@@ -40,7 +43,8 @@ $app->post('/files', function () use($fpdo,$app) {
 
 	$values = array('id' => 'NULL', 'filename' => $filename);
 	$query = $fpdo->insertInto('files', $values)->execute();
-	
+	$query = json_encode($query);
+	    	    echo ($query);
 	// $app->redirect('/');   
 });
 $app->run();
