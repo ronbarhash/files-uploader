@@ -15,13 +15,18 @@
 <body>
 <div class="container">
 	<div class="row .top">
-		<input id="fileupload" type="file" name="files[]" data-url="lib/js/jQuery-File-Upload/server/php/" multiple>
+	<label class="btn btn-default btn-file">
+	Browse
+		<input id="fileupload" type="file" name="files[]" data-url="lib/js/jQuery-File-Upload/server/php/" multiple style="display: none;">
+	</label>
 		<div id="progress" class="progress">
         	<div class="progress-bar progress-bar-success"></div>
    		</div>
 		
 	</div>
 	
+    <!-- The container for the uploaded files -->
+   
 	<div class="row">
 		<table class="table table-hover">
   			
