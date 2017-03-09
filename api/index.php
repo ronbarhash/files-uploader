@@ -3,6 +3,8 @@ require_once '../lib/php/vendor/autoload.php';
 require_once 'db.php';
 
 
+// require_once "../lib/php/vendor/setasign/fpdf/fpdf.php";
+
 $app = new \Slim\Slim();
 
 $app->get('/', function () use($fpdo){
@@ -47,5 +49,34 @@ $app->post('/files', function () use($fpdo,$app) {
 	    	    echo ($query);
 	// $app->redirect('/');   
 });
+
+$app->post('/file/:id/page/:num/delete', function($id, $num) use($fpdo){
+    $DIR = '../files/';
+   
+    $query = $fpdo->from('files')->where('id', $id);
+    $row = $query->fetch(); 
+    $filename=$row['filename'];
+
+    $pdf = new FPDI();
+    // var_dump( $DIR. $filename); exit;
+    $pageCount = $pdf->setSourceFile($DIR. $filename);
+    $skipPages = [$num];
+ 
+    for( $pageNo=1; $pageNo<=$pageCount; $pageNo++ ) {
+        $pageformat = array('Rotate'=>90,'Orienatation'=>'L');
+
+        if( in_array($pageNo,$skipPages) )
+            continue;
+
+        $templateID = $pdf->importPage($pageNo);
+        $pdf->getTemplateSize($templateID);
+        $pdf->addPage();
+        $pdf->useTemplate($templateID);
+    }
+
+    $pdf->Output($DIR. $filename,'F');
+
+});
+
 $app->run();
 ?>

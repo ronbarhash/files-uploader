@@ -22,6 +22,7 @@
 		<div id="progress" class="progress">
         	<div class="progress-bar progress-bar-success"></div>
    		</div>
+        <div class="test"><button id1="5">delpage</button></div>
 		
 	</div>
 	

@@ -33,6 +33,16 @@ $('.table').on('click', 'input', function(){
   });
   
 });
-
+$('.test').on('click','button', function(){
+  console.log($(this));
+  var id = $(this).attr('id1');
+  $.post('/api/file/'+ id + '/page/1/delete',{'id':id}).done(function(){  
+    
+    
+    // $('.PDF').show();
+    
+  });
+  
+});
 
 }

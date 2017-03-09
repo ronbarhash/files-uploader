@@ -1,6 +1,0 @@
-{
-    "require": {
-        "slim/slim": "~2.0",
-         "fpdo/fluentpdo": "1.1.*"
-    }
-}
