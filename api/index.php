@@ -2,9 +2,6 @@
 require_once '../lib/php/vendor/autoload.php';
 require_once 'db.php';
 
-
-// require_once "../lib/php/vendor/setasign/fpdf/fpdf.php";
-
 $app = new \Slim\Slim();
 
 $app->get('/', function () use($fpdo){
@@ -47,7 +44,7 @@ $app->post('/files', function () use($fpdo,$app) {
 	$query = $fpdo->insertInto('files', $values)->execute();
 	$query = json_encode($query);
 	    	    echo ($query);
-	// $app->redirect('/');   
+	  
 });
 
 $app->post('/file/:id/page/:num/delete', function($id, $num) use($fpdo){
@@ -58,7 +55,7 @@ $app->post('/file/:id/page/:num/delete', function($id, $num) use($fpdo){
     $filename=$row['filename'];
 
     $pdf = new FPDI();
-    // var_dump( $DIR. $filename); exit;
+    
     $pageCount = $pdf->setSourceFile($DIR. $filename);
     $skipPages = [$num];
  
