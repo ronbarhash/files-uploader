@@ -13,30 +13,27 @@
 	<title>Pdf - Reader</title>
 </head>
 <body>
-<div class="container">
-	<div class="row .top">
-	<label class="btn btn-default btn-file">
-	Upload
-		<input id="fileupload" type="file" name="files[]" data-url="lib/js/jQuery-File-Upload/server/php/" multiple style="display: none;">
-	</label>
-		<div id="progress" class="progress">
-        	<div class="progress-bar progress-bar-success"></div>
-   		</div>
-        <div class="test"><button id1="5">delpage</button></div>
-		
-	</div>
-	
-    <!-- The container for the uploaded files -->
-   
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">      
+      <label class="btn btn-success btn-file navbar-btn">
+        Upload
+            <input id="fileupload" type="file" name="files[]" data-url="lib/js/jQuery-File-Upload/server/php/" multiple style="display: none;">
+        </label>
+    </div>
+  </div>
+</nav>
+<div class="container">    
 	<div class="row">
-		<table class="table table-hover"></table>
+		<table class="table table-bordered"></table>
 		<div class="PDF">
 		   <object data="" type="application/pdf" width="750" height="600">
 		       alt : <a href="files/013147149X_book.pdf">your.pdf</a>
 		   </object>
 		</div>
 	</div>
-
+    <div class="row .top">
+   
 </div>
 <script src="js/app.js"></script>
 <script>
@@ -54,12 +51,9 @@ $(function () {
                 $('<p/>').text(file.name).appendTo('#files');
                 $.post('api/files',  { 'filename': file.name})
                 	.done(function(data) {
-                		$('.table').append('<tr><td>'+file.name+'</td><td><button class="btn btn-success">show</button></td>'+"<td><input type='submit' class='btn btn-danger' id="+data+" value='delete'></td></tr>"); 
-                		// +"<td><form method='POST' action='api/file/"+data+"'><input type='hidden' name='_method' value='DELETE'><input type='submit' class='btn btn-danger' value='delete'></form></td><tr>"
-                		// console.log(data);             						    	
+                		$('.table').append('<tr><td>'+file.name+'</td><td><button class="btn btn-default">show</button>'+"<input type='submit' class='btn btn-warning' id="+data+" value='delete'></td></tr>"); 
 				  	});
-            });
-            // getTable();
+            });        
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
